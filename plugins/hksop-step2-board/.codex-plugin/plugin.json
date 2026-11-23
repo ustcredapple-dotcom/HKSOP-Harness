@@ -1,0 +1,12 @@
+{
+  "name": "hksop-step2-board",
+  "displayName": "HKSOP Step 2 · 二维自动盘板与对孔",
+  "version": "1.1.0",
+  "description": "将通过光学体检的图转为可复验的面包板布局。",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "把当前通过体检的 graph.py 自动排进 450×350 mm（12.5 mm 孔距）面包板并输出俯视图",
+    "在 25 mm 孔距限制下帮我选最小能装下的标准面包板，并标出哪些地方配了 LS30 滑台",
+    "检查这个布局里哪些器件没对上 M6 螺孔，列出需要定制的偏心转接板清单"
+  ]
+}

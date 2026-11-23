@@ -1,0 +1,12 @@
+{
+  "name": "hksop-step3-manufacture",
+  "displayName": "HKSOP Step 3 · 三维总装与加工交付包",
+  "version": "1.1.0",
+  "description": "以冻结工程核验三维光束净空、装配与加工交付。",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "把确认好的 project.zzoptics.json 拼成整板三维总装 STEP，并检查有没有三维光束擦边挡光",
+    "为当前模块生成含侧壁 HKSOP Logo、顶面中文定位框镭雕的机加工交付包",
+    "汇总本光路版本锁定的全部采购清单与装配文档，打包生成客户交付包"
+  ]
+}

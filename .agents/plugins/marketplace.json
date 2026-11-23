@@ -1,0 +1,56 @@
+{
+  "name": "hksop-local",
+  "interface": {
+    "displayName": "HKSOP Harness"
+  },
+  "plugins": [
+    {
+      "name": "hksop-step1-optics",
+      "source": {
+        "source": "local",
+        "path": "./plugins/hksop-step1-optics"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    },
+    {
+      "name": "hksop-step2-board",
+      "source": {
+        "source": "local",
+        "path": "./plugins/hksop-step2-board"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    },
+    {
+      "name": "hksop-custom-part",
+      "source": {
+        "source": "local",
+        "path": "./plugins/hksop-custom-part"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    },
+    {
+      "name": "hksop-step3-manufacture",
+      "source": {
+        "source": "local",
+        "path": "./plugins/hksop-step3-manufacture"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    }
+  ]
+}

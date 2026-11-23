@@ -1,0 +1,279 @@
+{
+  "new-waveplate-single": {
+    "step": "sha256/bb/bb5133fb0cd7ae1d698d459adcdfad0a0211604ab2d2c795508cd45eb504c819.step",
+    "sha256": "bb5133fb0cd7ae1d698d459adcdfad0a0211604ab2d2c795508cd45eb504c819",
+    "sourceToKit3x4": [
+      [
+        1.0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1.0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1.0,
+        0
+      ]
+    ],
+    "datumEvidence": "Source STEP planar/cylindrical faces and local registered mounting footprint in CAD-datums.json. h=62.5 mm.",
+    "transmissiveOpticalLeaves": [
+      {
+        "index": 11,
+        "name": "HWP25-532A_substrate_1",
+        "centerSourceMm": [
+          8.8,
+          0,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          1,
+          0,
+          0
+        ],
+        "clearRadiusMm": 10.0,
+        "halfThicknessMm": 0.8
+      },
+      {
+        "index": 12,
+        "name": "HWP25-532A_substrate_2",
+        "centerSourceMm": [
+          10.4,
+          0,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          1,
+          0,
+          0
+        ],
+        "clearRadiusMm": 10.0,
+        "halfThicknessMm": 0.8
+      }
+    ]
+  },
+  "mt-cube-pbs-1inch-m1-r1": {
+    "step": "sha256/02/02b1121cfd8d3cf765ce79163a78e0e85e7fb373917ca426901da1b71b369b2a.step",
+    "sha256": "02b1121cfd8d3cf765ce79163a78e0e85e7fb373917ca426901da1b71b369b2a",
+    "sourceToKit3x4": [
+      [
+        1.0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1.0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1.0,
+        0
+      ]
+    ],
+    "datumEvidence": "CAD-datums.json: the two named prisms have orthogonal external faces at x or y = +/-12.7 mm; common splitting face crosses (0,0,62.5). PBS641 80% clear aperture on the 25.4 mm face, per LBTEK https://en.lbtek.com/product/88. Only central aligned rays are accepted.",
+    "transmissiveOpticalLeaves": [
+      {
+        "index": 42,
+        "name": "PBS641-1-1",
+        "centerSourceMm": [
+          0,
+          0,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          1,
+          0,
+          0
+        ],
+        "clearRadiusMm": 10.16,
+        "halfThicknessMm": 12.7,
+        "additionalPortNormalsSourceXYZ": [
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "index": 43,
+        "name": "PBS641-1-2",
+        "centerSourceMm": [
+          0,
+          0,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          1,
+          0,
+          0
+        ],
+        "clearRadiusMm": 10.16,
+        "halfThicknessMm": 12.7,
+        "additionalPortNormalsSourceXYZ": [
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  "uma1-r8-mt-am1s5-45": {
+    "step": "sha256/82/82dd5078b45f33d654b2d57f4fa4697da5333dba53f7dc7ec6e413c4682c9886.step",
+    "sha256": "82dd5078b45f33d654b2d57f4fa4697da5333dba53f7dc7ec6e413c4682c9886",
+    "sourceToKit3x4": [
+      [
+        1.0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1.0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1.0,
+        0
+      ]
+    ],
+    "datumEvidence": "Source STEP planar/cylindrical faces and local registered mounting footprint in CAD-datums.json. h=62.5 mm.",
+    "transmissiveOpticalLeaves": [
+      {
+        "index": 30,
+        "name": "MT-AM1S5_30_OPTIC",
+        "centerSourceMm": [
+          2.1213203435596433,
+          -2.121320343559642,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          -0.7071067811865475,
+          0.7071067811865476,
+          0.0
+        ],
+        "clearRadiusMm": 11.0,
+        "halfThicknessMm": 3.0
+      }
+    ]
+  },
+  "waveplate-centered-dual-1-wpc2-r1": {
+    "step": "sha256/3c/3ccccc30b89551dbe371f3007f0a50af7a55d08441389e9b200ec7fba07c05ad.step",
+    "sha256": "3ccccc30b89551dbe371f3007f0a50af7a55d08441389e9b200ec7fba07c05ad",
+    "sourceToKit3x4": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ]
+    ],
+    "datumEvidence": "Manufacturer optical subsolids, axial planes, seat and clear-aperture dimensions.",
+    "transmissiveOpticalLeaves": [
+      {
+        "index": 20,
+        "name": "A_D25p4_T3p2_MECHANICAL_GLASS_ENVELOPE_NOT_PRESCRIPTION",
+        "centerSourceMm": [
+          0,
+          11.1,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          0,
+          1,
+          0
+        ],
+        "clearRadiusMm": 10.0,
+        "halfThicknessMm": 1.6
+      },
+      {
+        "index": 21,
+        "name": "B_D25p4_T3p2_MECHANICAL_GLASS_ENVELOPE_NOT_PRESCRIPTION",
+        "centerSourceMm": [
+          0,
+          -11.1,
+          62.5
+        ],
+        "normalSourceXYZ": [
+          0,
+          1,
+          0
+        ],
+        "clearRadiusMm": 10.0,
+        "halfThicknessMm": 1.6
+      }
+    ]
+  },
+  "uma1-r8-mt-flf1s-45": {
+    "step": "sha256/61/6185ddf74899d57bb4f39dfedc2aa03a251e7a63b11e5e36ae8f758d6b20abde.step",
+    "sha256": "6185ddf74899d57bb4f39dfedc2aa03a251e7a63b11e5e36ae8f758d6b20abde",
+    "sourceToKit3x4": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ]
+    ],
+    "datumEvidence": "Manufacturer optical subsolids, axial planes, seat and clear-aperture dimensions.",
+    "transmissiveOpticalLeaves": [
+      {
+        "index": 7,
+        "name": "MT-FLF1S_07_OEM",
+        "centerSourceMm": [
+          2.12132034356,
+          -2.12132034356,
+          62.1
+        ],
+        "normalSourceXYZ": [
+          -0.7071067811865476,
+          0.7071067811865476,
+          0
+        ],
+        "clearRadiusMm": 11.0,
+        "halfThicknessMm": 3.0
+      }
+    ]
+  }
+}

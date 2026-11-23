@@ -1,0 +1,12 @@
+{
+  "name": "hksop-custom-part",
+  "displayName": "HKSOP Custom · 非标件设计与元件库",
+  "version": "1.1.0",
+  "description": "解析定制件需求，建模、校验及登记经确认的元件包。",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "读取 custom-wishes.json，为所有待定制的偏心转接板与非标座生成 STEP 模型和工程图",
+    "按 HKSOP 规范把刚画好的定制转接件校验入库，并刷新精简目录",
+    "帮我把一套新采购的商业镜架/电动调整架拆解成标准套件包登记进元件库"
+  ]
+}

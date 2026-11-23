@@ -1,0 +1,60 @@
+{
+  "format": "hksop-harness-compatibility-v1",
+  "version": "1.1.0",
+  "repository": "https://github.com/ustcredapple-dotcom/HKSOP-Harness",
+  "core": {
+    "repository": "https://github.com/ustcredapple-dotcom/HKSOP",
+    "branch": "main",
+    "inspectedCommit": "4825d00ef35561ae4607800534ac3cca32c25869",
+    "inspectedCatalogMetadata": "2026-11-12.standard-restored-no-r8",
+    "validatedCatalog": "hksop-20261122-curated-r1",
+    "validatedCatalogSha256": "20eb5f9bb72459bb8acd28b34a4f5a23714d5d522637ed40fefd58c8b0852fc8",
+    "requiredFiles": [
+      "hksop.py",
+      "library/catalog.json",
+      "library/catalog-ai-slim.json",
+      "library/curation.json",
+      "engine/design/design.cjs"
+    ]
+  },
+  "python": ">=3.11",
+  "cad": [
+    "cadquery-ocp",
+    "numpy"
+  ],
+  "cordisHost": ">=0.2.0 <0.3.0",
+  "previousPackageFingerprints": {
+    "hksop-step1-optics": [
+      "244ef68fe11f10eaf9cea4d2e55dfb88255ff75e097a9e2de04c1b722e2d6bcb",
+      "c785b4c9b00921e63b3cc29c23cbfe0236618fc69623980d59284fa7ab69c7ba"
+    ],
+    "dsh-hksop-step1-optics": [
+      "bdf4f7097aa48d1b8a1563cd771fc7c0642b4802001e590d4ce99ebfdd16ad95",
+      "cb6634c96d0a9813160abb91ad58668a386ab1bc41541c536f48ed82dd352695"
+    ],
+    "hksop-step2-board": [
+      "095dba20f13fe24e788a05e9d29735c3c95f280894e601d9cbcc469177630e86",
+      "42edbba669c53c409aacacce798e2232a042f33c63ff05cb1efde21eaf74a0dc"
+    ],
+    "dsh-hksop-step2-board": [
+      "a0606476dba85cf4b594444e3937f44bf05f51c18455d51c6e8454777a3a1a6b",
+      "be975716415629ce5d047761e5ad800fc16c95d049c9fe50475881362def5d4a"
+    ],
+    "hksop-custom-part": [
+      "34e0719cef900998d677d29efc5cf505d37bba0d593d977badd212c0872349dc",
+      "82b83c526da387382bf310010d022807ae6016a9bcce873afc31dcbc0e2840b9"
+    ],
+    "dsh-hksop-custom-part": [
+      "d0593d013c58b873c94fd30d271cc57a23bcc7b2e928d493bf5ceb6713eda740",
+      "d28a1ed920a1b5ca65bd488a9a9e2a849ad3340a58bf8e5f5983791b76e139b7"
+    ],
+    "hksop-step3-manufacture": [
+      "3164ebcd57271b8c7f0b9a22081882454ceabd026a9800a3f68086db06a1a995",
+      "4de1951c44f98e5d2fa73edd304228c391f1d09437d791f643b6b92a6c98e906"
+    ],
+    "dsh-hksop-step3-manufacture": [
+      "a34679cda56fe644cdbefaf2c4227190f856e7fa06481c19f23ac0ef64086e29",
+      "eaa1015f018c747e3785edc794a5fa8601ee48031eace67f03ba5b16adb0e88a"
+    ]
+  }
+}

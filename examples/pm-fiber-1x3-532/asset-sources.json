@@ -1,0 +1,26 @@
+{
+  "A240TM-A": {
+    "file": "A240TM-A.step",
+    "drawing": "15817-E0W.step",
+    "source": "https://thin01mstroc282prod.dxcloud.episerver.net/globalassets/items/a/a2/a24/a240tm-a/15817-e0w.step?v=0116101549",
+    "sha256": "b35712146a5e160cfac1de9d09e83187e6a55c9cff042f29a4a164df0f4904e4"
+  },
+  "P3-488PM-FC-2": {
+    "file": "P3-488PM-FC-2.step",
+    "drawing": "19721-E0W.step",
+    "source": "https://thin01mstroc282prod.dxcloud.episerver.net/globalassets/items/p/p3/p3-/p3-488pm-fc-2/19721-e0w.step?v=0116014945",
+    "sha256": "7a05870a84cab89b649d0d04542bc516b3deb5185caeedf771b764ac213f710b"
+  },
+  "S1TM12": {
+    "file": "S1TM12.step",
+    "drawing": "0383-E0W.step",
+    "source": "https://thin01mstroc282prod.dxcloud.episerver.net/globalassets/items/s/s1/s1t/s1tm12/0383-e0w.step?v=0116024031",
+    "sha256": "24f9c5d1a8dc416fdd576661b94d0121f8c90cf35d3aceb52b6c86254a74a4df"
+  },
+  "SM1FCA2": {
+    "file": "SM1FCA2.step",
+    "drawing": "TTN214353-E0W.step",
+    "source": "https://thin01mstroc282prod.dxcloud.episerver.net/globalassets/items/s/sm/sm1/sm1fca2/ttn214353-e0w.step?v=0116025712",
+    "sha256": "f8c52e39ffacd125cecbf5fac80a18b295d1cf2862988f26c53096cb51e8ec02"
+  }
+}

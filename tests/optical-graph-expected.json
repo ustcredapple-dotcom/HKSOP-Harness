@@ -1,0 +1,175 @@
+{
+  "format": "hksop-optical-graph-acceptance-v1",
+  "cliContract": {
+    "packageDir": "optical_graph",
+    "renderEntry": "optical_graph_render.py",
+    "acceptanceRunner": "optical_graph_acceptance.py",
+    "commands": {
+      "single": "python3 optical_graph_render.py <py_or_json> --func <name> -o <out.html> [--svg <out.svg>] [--json <trace.json>] [--allow-invalid]",
+      "gallery": "python3 optical_graph_render.py <py_file> --all [-o results/optical-graph/gallery.html] [--svg-dir results/optical-graph/svg] [--json results/optical-graph/summary.json] [--allow-invalid]",
+      "acceptance": "python3 optical_graph_acceptance.py"
+    },
+    "exitCodes": {
+      "0": "all rendered graphs valid or --allow-invalid set",
+      "1": "one or more graphs failed validation without --allow-invalid",
+      "2": "CLI argument, import, or schema construction error"
+    },
+    "diagnosticCodes": [
+      "invalid_port_or_duplicate_link",
+      "unterminated_beam",
+      "defensive_dump",
+      "polarization_fold_hazard",
+      "fold_at_nonstandard_height",
+      "tight_aperture",
+      "severe_clipping",
+      "collimation_error",
+      "isolator_reverse_blocked",
+      "terminal_no_light",
+      "pm_pol_mismatch"
+    ]
+  },
+  "fixtures": {
+    "q1_kepler_expander": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {
+          "node": "FC",
+          "wavelength_nm": 780.0,
+          "power_mw": 10.0,
+          "power_tol_mw": 0.1,
+          "pol": "P",
+          "freq_shift_mhz": 0.0,
+          "diameter_mm": 2.4,
+          "diameter_tol_mm": 0.05,
+          "collimated": true
+        }
+      ],
+      "nodeChecks": {
+        "L1": {"convex_toward": "a"},
+        "L2": {"convex_toward": "b"}
+      },
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["collimation_error", "pm_pol_mismatch", "unterminated_beam", "polarization_fold_hazard"]
+      }
+    },
+    "q2_1x3_splitter": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "BD0", "wavelength_nm": 532.0, "power_mw": 4.0, "power_tol_mw": 0.1, "pol": "S"},
+        {"node": "FC1", "wavelength_nm": 532.0, "power_mw": 48.0, "power_tol_mw": 0.2, "pol": "P", "diameter_mm": 1.5, "diameter_tol_mm": 0.05},
+        {"node": "FC2", "wavelength_nm": 532.0, "power_mw": 28.8, "power_tol_mw": 0.2, "pol": "P", "diameter_mm": 1.5, "diameter_tol_mm": 0.05},
+        {"node": "FC3", "wavelength_nm": 532.0, "power_mw": 19.2, "power_tol_mw": 0.2, "pol": "P", "diameter_mm": 1.5, "diameter_tol_mm": 0.05}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["unterminated_beam", "polarization_fold_hazard", "pm_pol_mismatch"]
+      }
+    },
+    "q3_double_pass_aom": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "BD0", "wavelength_nm": 780.0, "power_mw": 2.5, "power_tol_mw": 0.1, "pol": "S", "freq_shift_mhz": 0.0},
+        {"node": "FC", "wavelength_nm": 780.0, "power_mw": 47.5, "power_tol_mw": 0.2, "pol": "P", "freq_shift_mhz": 220.0, "diameter_mm": 1.2, "diameter_tol_mm": 0.05, "collimated": true}
+      ],
+      "linkChecks": [
+        {"u": "P1.p3", "v": "AOM.a", "bidirectional": true},
+        {"u": "AOM.b", "v": "L.a", "bidirectional": true},
+        {"u": "L.b", "v": "QWP.a", "bidirectional": true},
+        {"u": "QWP.b", "v": "RM.front", "bidirectional": true}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["unterminated_beam", "isolator_reverse_blocked", "collimation_error", "pm_pol_mismatch"]
+      }
+    },
+    "q4_dichroic_window_focus": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "CAM", "beam_count": 2, "total_power_mw": 0.6, "power_tol_mw": 0.05},
+        {"node": "T", "beam_count": 2, "total_power_mw": 29.4, "power_tol_mw": 0.2}
+      ],
+      "linkChecks": [
+        {"u": "L.b", "v": "W.a", "resolved_air_mm": 134.0, "air_tol_mm": 0.1}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": ["defensive_dump"],
+        "mustExcludeCodes": ["unterminated_beam", "fold_at_nonstandard_height"]
+      }
+    },
+    "q5_rb87_offset_sas": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "N6", "wavelength_nm": 780.0, "power_mw": 25.0, "power_tol_mw": 0.2, "pol": "P", "freq_shift_mhz": 0.0},
+        {"node": "N11", "wavelength_nm": 780.0, "power_mw": 12.5, "power_tol_mw": 0.2, "pol": "P", "freq_shift_mhz": 0.0},
+        {"node": "N13", "wavelength_nm": 780.0, "power_mw": 12.5, "power_tol_mw": 0.2, "pol": "S", "freq_shift_mhz": 80.0}
+      ],
+      "linkChecks": [
+        {"u": "N8.p3", "v": "N9.a", "bidirectional": true},
+        {"u": "N9.b", "v": "N10.p1", "bidirectional": true}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": ["tight_aperture"],
+        "mustExcludeCodes": ["unterminated_beam", "severe_clipping", "polarization_fold_hazard"]
+      }
+    },
+    "q6_balanced_heterodyne": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "N9", "wavelength_nm": 1064.0, "power_mw": 10.0, "power_tol_mw": 0.2, "beat_freq_mhz": 5.0, "beat_tol_mhz": 0.01},
+        {"node": "N10", "wavelength_nm": 1064.0, "power_mw": 10.0, "power_tol_mw": 0.2, "beat_freq_mhz": 5.0, "beat_tol_mhz": 0.01}
+      ],
+      "differentialChecks": [
+        {"node_a": "N9", "node_b": "N10", "beat_phase_diff_deg": 180.0, "phase_tol_deg": 1.0}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["unterminated_beam", "polarization_fold_hazard"]
+      }
+    },
+    "q7_buggy_double_pass": {
+      "expectedValid": false,
+      "terminalChecks": [
+        {"node": "N11", "power_mw": 0.0, "power_tol_mw": 0.01}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": ["collimation_error", "isolator_reverse_blocked", "terminal_no_light"],
+        "mustExcludeCodes": []
+      }
+    },
+    "q7_fixed_double_pass": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "N11", "wavelength_nm": 780.0, "power_mw": 10.0, "power_tol_mw": 0.1, "pol": "P", "freq_shift_mhz": 200.0, "diameter_mm": 1.2, "diameter_tol_mm": 0.05, "collimated": true}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["collimation_error", "isolator_reverse_blocked", "terminal_no_light", "pm_pol_mismatch", "tight_aperture", "severe_clipping"]
+      }
+    },
+    "q8_vertical_down_atoms": {
+      "expectedValid": true,
+      "terminalChecks": [
+        {"node": "Atoms", "wavelength_nm": 399.0, "power_mw": 15.0, "power_tol_mw": 0.2, "max_abs_defocus_mm": 0.1}
+      ],
+      "nodeChecks": {
+        "M_down": {"board_cutout_required": true},
+        "QWP": {"input_pol": "S", "output_pol": "LHC"}
+      },
+      "linkChecks": [
+        {"u": "Obj.b", "v": "Win.a", "resolved_air_mm": 50.92, "air_tol_mm": 0.1}
+      ],
+      "expectedDiagnostics": {
+        "mustIncludeCodes": [],
+        "mustExcludeCodes": ["unterminated_beam", "polarization_fold_hazard", "fold_at_nonstandard_height"]
+      }
+    },
+    "q9_fold_hazard_and_leak_negative": {
+      "expectedValid": false,
+      "expectedDiagnostics": {
+        "mustIncludeCodes": ["polarization_fold_hazard", "unterminated_beam"],
+        "mustExcludeCodes": []
+      }
+    }
+  }
+}

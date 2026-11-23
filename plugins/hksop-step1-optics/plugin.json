@@ -1,0 +1,12 @@
+{
+  "name": "hksop-step1-optics",
+  "displayName": "HKSOP Step 1 · 纯光学原理设计",
+  "version": "1.1.0",
+  "description": "纯光学方案、端口追迹与原理图。",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "根据实验参数设计一套双通 AOM 移频进保偏光纤的原理方案并出原理图",
+    "帮我审查并检查这段 OpticalGraph 光路代码有没有偏振、孔径或废光漏洞",
+    "把两束不同波长激光合束后垂直向下打穿面包板，生成第一层原理图"
+  ]
+}

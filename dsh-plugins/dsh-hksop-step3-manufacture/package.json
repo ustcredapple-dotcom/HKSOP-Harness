@@ -1,0 +1,28 @@
+{
+  "name": "dsh-hksop-step3-manufacture",
+  "version": "1.1.0",
+  "description": "HKSOP Step 3 · 三维总装与加工交付包。以冻结工程核验三维光束净空、装配与加工交付。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "skills",
+    "rules",
+    "assets",
+    "README.md",
+    "cordis.patch.yml"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.0 <0.3.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

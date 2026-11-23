@@ -1,0 +1,25 @@
+from optical_graph import OpticalGraph, AOM, Camera, FiberCoupler, LaserSource, Lens, PBS, QuarterWaveplate, RetroMirror, SamplerPlate
+
+def build_graph():
+    g = OpticalGraph('double-pass-focus-camera', default_plane_height_mm=62.5)
+    g.add('Input', LaserSource(wavelength_nm=780, diameter_mm=1.2, pol='P', pol_angle_deg=None, height_mm=62.5, power_mw=40, m2=1.0))
+    g.add('PBS', PBS(aperture_inch=0.5))
+    g.add('AO', AOM(rf_mhz=100, order=1, active_aperture_mm=3, zero_order_blocked=True))
+    g.add('Cat', Lens(f_mm=100, aperture_inch=1.0, kind='singlet', convex_toward='auto'))
+    g.add('Q', QuarterWaveplate(aperture_inch=0.5, fast_axis_deg=45, target_pol=None, double_pass_flip=False, note=''))
+    g.add('End', RetroMirror(aperture_inch=1.0, actuation='manual'))
+    g.add('Tap', SamplerPlate(aperture_inch=1.0, reflect_ratio=0.02))
+    g.add('Image', Lens(f_mm=100, aperture_inch=1.0, kind='achromat', convex_toward='auto'))
+    g.add('Camera', Camera(label='far-field spot'))
+    g.add('PM', FiberCoupler(allow_uncompensated_pm=True, mode='SM_PM', design_diameter_mm=1.2, required_pol='S', steering_mirrors=2))
+    g.link('Input.front', 'PBS.p1', exact_mm=None, tol_mm=0.5, min_mm=40, max_mm=380, can_fold=True, note='')
+    g.link('PBS.p3', 'AO.a', exact_mm=None, tol_mm=0.5, min_mm=40, max_mm=180, can_fold=False, note='')
+    g.link('AO.b', 'Cat.a', exact_mm=100, tol_mm=1.5, min_mm=25.0, max_mm=500.0, can_fold=False, note='')
+    g.link('Cat.b', 'Q.a', exact_mm=None, tol_mm=0.5, min_mm=42, max_mm=58, can_fold=False, note='')
+    g.link('Q.b', 'End.front', exact_mm=None, tol_mm=0.5, min_mm=42, max_mm=58, can_fold=False, note='')
+    g.link('PBS.p4', 'Tap.p1', exact_mm=None, tol_mm=0.5, min_mm=50, max_mm=400, can_fold=True, note='')
+    g.link('Tap.p2', 'Image.a', exact_mm=None, tol_mm=0.5, min_mm=50, max_mm=360, can_fold=True, note='')
+    g.link('Image.b', 'Camera.front', exact_mm=100, tol_mm=0.4, min_mm=25.0, max_mm=500.0, can_fold=False, note='')
+    g.link('Tap.p3', 'PM.front', exact_mm=None, tol_mm=0.5, min_mm=145, max_mm=680, can_fold=True, note='')
+    g.span('Cat.b', 'End.front', exact_mm=100, tol_mm=0.35, note='')
+    return g

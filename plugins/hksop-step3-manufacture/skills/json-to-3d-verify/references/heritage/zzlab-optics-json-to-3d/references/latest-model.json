@@ -1,0 +1,16 @@
+{
+  "format": "hksop-model-evidence-example-v1",
+  "example": true,
+  "description": "Fill this template from the assembly under review.",
+  "project": "design/project.zzoptics.json",
+  "geometry": "geometry/geometry.json",
+  "assembly": "delivery/assembly.step",
+  "required": [
+    "projectSha256",
+    "assemblySha256",
+    "units",
+    "sourceToKit3x4",
+    "beamClearanceReceipt"
+  ],
+  "units": "mm"
+}
