@@ -68,7 +68,7 @@ python3 scripts/install_plugins.py --client dsh --apply
 | 客户端 | 默认目录 | 如何启用 |
 |---|---|---|
 | Antigravity | ~/.gemini/config/plugins | 在客户端的插件界面启用所需步骤 |
-| Codex | ~/.codex/local-marketplaces/hksop/plugins | 已登记 hksop-local 的环境沿用原入口。首次使用可在 Codex 添加本仓库的本地市场，再选装四个插件；市场清单位于 .agents/plugins/marketplace.json |
+| Codex | ~/.codex/local-marketplaces/hksop/plugins | 已登记 hksop-local 的环境沿用原入口，更新时可追加 `--sync-codex-cache` 同步 `~/.codex/plugins/cache/hksop-local` 并备份旧版缓存。首次使用可在 Codex 添加本仓库的本地市场，再选装四个插件；市场清单位于 .agents/plugins/marketplace.json |
 | DeepSeek Harness | ~/.dsh/local-plugins | 在桌面插件管理中选择对应本地 Cordis 包，可逐项启停 |
 
 指定 --target 可将实体文件安装到项目目录。--update --apply 会核对来源后升级已安装的副本或链接；本地改动引起的哈希差异会阻止替换。显式使用 --mode symlink 可改为指向源码的链接。客户端账号、启用列表及全局配置由宿主管理。

@@ -1,7 +1,7 @@
 {
   "name": "hksop-step3-manufacture",
   "displayName": "HKSOP Step 3 · 三维总装与加工交付包",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "以冻结工程核验三维光束净空、装配与加工交付。",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [

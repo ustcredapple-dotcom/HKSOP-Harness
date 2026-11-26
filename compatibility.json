@@ -1,6 +1,6 @@
 {
   "format": "hksop-harness-compatibility-v1",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "repository": "https://github.com/ustcredapple-dotcom/HKSOP-Harness",
   "core": {
     "repository": "https://github.com/ustcredapple-dotcom/HKSOP",
@@ -26,35 +26,43 @@
   "previousPackageFingerprints": {
     "hksop-step1-optics": [
       "244ef68fe11f10eaf9cea4d2e55dfb88255ff75e097a9e2de04c1b722e2d6bcb",
-      "c785b4c9b00921e63b3cc29c23cbfe0236618fc69623980d59284fa7ab69c7ba"
+      "c785b4c9b00921e63b3cc29c23cbfe0236618fc69623980d59284fa7ab69c7ba",
+      "669521ba5b9feebe9357c7dc202e2e4cde932c0341becd1061815c5113dfade1"
     ],
     "dsh-hksop-step1-optics": [
       "bdf4f7097aa48d1b8a1563cd771fc7c0642b4802001e590d4ce99ebfdd16ad95",
-      "cb6634c96d0a9813160abb91ad58668a386ab1bc41541c536f48ed82dd352695"
+      "cb6634c96d0a9813160abb91ad58668a386ab1bc41541c536f48ed82dd352695",
+      "f0cbbfbbb6f5003b3e92c6a3b2074dd43eb55d9aaae75b3f5a217c61b5bfd6d2"
     ],
     "hksop-step2-board": [
       "095dba20f13fe24e788a05e9d29735c3c95f280894e601d9cbcc469177630e86",
-      "42edbba669c53c409aacacce798e2232a042f33c63ff05cb1efde21eaf74a0dc"
+      "42edbba669c53c409aacacce798e2232a042f33c63ff05cb1efde21eaf74a0dc",
+      "b631592c7ad8a25b129faf92185986cc460fa18b80542c2383f6bc96b0ec2433"
     ],
     "dsh-hksop-step2-board": [
       "a0606476dba85cf4b594444e3937f44bf05f51c18455d51c6e8454777a3a1a6b",
-      "be975716415629ce5d047761e5ad800fc16c95d049c9fe50475881362def5d4a"
+      "be975716415629ce5d047761e5ad800fc16c95d049c9fe50475881362def5d4a",
+      "a4d8dc94da73f79770410fb5879c659605746ba29cabded69b2f061649d1625a"
     ],
     "hksop-custom-part": [
       "34e0719cef900998d677d29efc5cf505d37bba0d593d977badd212c0872349dc",
-      "82b83c526da387382bf310010d022807ae6016a9bcce873afc31dcbc0e2840b9"
+      "82b83c526da387382bf310010d022807ae6016a9bcce873afc31dcbc0e2840b9",
+      "565c613fd5509cc87352516b8cb1667272ddaa8ee3c536f42be85110584d8455"
     ],
     "dsh-hksop-custom-part": [
       "d0593d013c58b873c94fd30d271cc57a23bcc7b2e928d493bf5ceb6713eda740",
-      "d28a1ed920a1b5ca65bd488a9a9e2a849ad3340a58bf8e5f5983791b76e139b7"
+      "d28a1ed920a1b5ca65bd488a9a9e2a849ad3340a58bf8e5f5983791b76e139b7",
+      "149fa471f4ef2fc2eeb2bf60ab964befbe3744385f1610cf84535fd4dd8a887a"
     ],
     "hksop-step3-manufacture": [
       "3164ebcd57271b8c7f0b9a22081882454ceabd026a9800a3f68086db06a1a995",
-      "4de1951c44f98e5d2fa73edd304228c391f1d09437d791f643b6b92a6c98e906"
+      "4de1951c44f98e5d2fa73edd304228c391f1d09437d791f643b6b92a6c98e906",
+      "eca26a1cb8458ed47e193e6655017ad199e3b9ce836fa87ed4464387f3776360"
     ],
     "dsh-hksop-step3-manufacture": [
       "a34679cda56fe644cdbefaf2c4227190f856e7fa06481c19f23ac0ef64086e29",
-      "eaa1015f018c747e3785edc794a5fa8601ee48031eace67f03ba5b16adb0e88a"
+      "eaa1015f018c747e3785edc794a5fa8601ee48031eace67f03ba5b16adb0e88a",
+      "85146590ec538ac4c84603b453350e657211535ecf3b13ab7457be8b5dc0f2d9"
     ]
   }
 }

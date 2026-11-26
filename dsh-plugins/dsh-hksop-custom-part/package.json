@@ -1,6 +1,6 @@
 {
   "name": "dsh-hksop-custom-part",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "HKSOP Custom · 非标件设计与元件库。解析定制件需求，建模、校验及登记经确认的元件包。",
   "type": "module",
   "main": "lib/index.js",

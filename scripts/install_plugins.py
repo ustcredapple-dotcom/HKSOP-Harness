@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Preview or atomically install the four independent HKSOP plugins for a client."""
 import argparse
+from datetime import datetime
 import fcntl
 import hashlib
 import json
@@ -45,7 +46,55 @@ def validate_target(target):
     return root
 
 
-def install(client, target, mode, apply, update):
+def sync_codex_plugin_cache(store, legacy, apply, update):
+    cache_root = Path.home() / ".codex/plugins/cache/hksop-local"
+    stamp_ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_root = Path.home() / ".codex/backups" / f"hksop-cache-{stamp_ts}"
+    for name in NAMES:
+        source = store / name
+        identity = json.loads((source / "plugin.json").read_bytes())
+        version = identity["version"]
+        wanted = signature(source)
+        plugin_cache = cache_root / name
+        dest = plugin_cache / version
+        stale_dirs = [p for p in sorted(plugin_cache.iterdir()) if p.name != version] if plugin_cache.is_dir() else []
+        need_copy = True
+        if os.path.lexists(dest):
+            if not dest.is_symlink() and dest.is_dir() and signature(dest) == wanted:
+                need_copy = False
+            else:
+                if not update:
+                    raise ValueError(f"Already cached: {name}/{version}. Use --update for a verified replacement.")
+                actual = None if dest.is_symlink() else signature(dest)
+                if actual is not None and actual not in legacy.get(name, []) and actual != wanted:
+                    raise ValueError(f"Unrecognized or locally edited cache installation: {dest}")
+        if not apply:
+            if need_copy or stale_dirs:
+                print("DRY-RUN cache-sync", name, "→", dest)
+            continue
+        plugin_cache.mkdir(parents=True, exist_ok=True)
+        if need_copy:
+            with tempfile.TemporaryDirectory(prefix=".hksop-cache-", dir=plugin_cache) as temp:
+                slot = Path(temp) / version
+                shutil.copytree(source, slot, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store", "._*"))
+                if signature(slot) != wanted:
+                    raise ValueError(f"Incomplete cache copy: {name}/{version}")
+                if os.path.lexists(dest):
+                    dst_backup = backup_root / name / (version + "-replaced")
+                    dst_backup.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.move(str(dest), str(dst_backup))
+                slot.rename(dest)
+            print("CACHE-SYNC", name, "→", dest)
+        for old in stale_dirs:
+            old_backup = backup_root / name / old.name
+            old_backup.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(old), str(old_backup))
+            print("CACHE-BACKUP", old, "→", old_backup)
+
+
+def install(client, target, mode, apply, update, sync_codex_cache=False):
+    if sync_codex_cache and client != "codex":
+        raise ValueError("--sync-codex-cache 仅适用于 --client codex")
     root = validate_target(target or (Path.home() / CLIENTS[client]))
     store = ROOT / ("dsh-plugins" if client == "dsh" else "plugins")
     legacy = json.loads((ROOT / "compatibility.json").read_bytes()).get("previousPackageFingerprints", {})
@@ -94,6 +143,8 @@ def install(client, target, mode, apply, update):
     if not apply:
         for src, dst, _, _ in plan():
             print("DRY-RUN", mode, src.name, "→", dst)
+        if sync_codex_cache:
+            sync_codex_plugin_cache(store, legacy, False, update)
         return
     root.mkdir(exist_ok=True, parents=True)
     handle = os.open(root, os.O_RDONLY)
@@ -129,6 +180,8 @@ def install(client, target, mode, apply, update):
                 raise
     finally:
         os.close(handle)
+    if sync_codex_cache:
+        sync_codex_plugin_cache(store, legacy, True, update)
 
 
 if __name__ == "__main__":
@@ -137,11 +190,12 @@ if __name__ == "__main__":
     p.add_argument("--target", type=Path)
     p.add_argument("--mode", choices=("copy", "symlink"), default="copy")
     p.add_argument("--update", action="store_true")
+    p.add_argument("--sync-codex-cache", action="store_true")
     choice = p.add_mutually_exclusive_group()
     choice.add_argument("--apply", action="store_true")
     choice.add_argument("--dry-run", action="store_true")
     a = p.parse_args()
     try:
-        install(a.client, a.target, a.mode, a.apply, a.update)
+        install(a.client, a.target, a.mode, a.apply, a.update, a.sync_codex_cache)
     except (OSError, ValueError, KeyError) as exc:
         p.exit(1, str(exc) + "\n")

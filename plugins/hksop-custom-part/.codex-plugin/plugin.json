@@ -1,7 +1,7 @@
 {
   "name": "hksop-custom-part",
   "displayName": "HKSOP Custom · 非标件设计与元件库",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "解析定制件需求，建模、校验及登记经确认的元件包。",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [
