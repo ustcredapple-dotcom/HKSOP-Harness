@@ -13,7 +13,7 @@ Four isolated plugins and the existing zero-build marketplace contract remain in
 |---|---:|---:|---:|---:|---:|---:|
 | 改造前 / Baseline | 319 | 2522.2 | 105 | 164 | 1192.9 | 47.3% |
 | 去重检查点 / Refactoring checkpoint | 198 | 1638.3 | 27 | 37 | 330.7 | 20.2% |
-| 含双语展示完整交付 / Complete release | 217 | 4711.5 | 27 | 37 | 330.7 | 7.0% |
+| 含双语展示完整交付 / Complete release | 218 | 4929.7 | 27 | 37 | 330.7 | 6.7% |
 <!-- END_METRICS -->
 
 完整交付的总字节数高于去重后的基础仓库，因为新增双语 SVG、2× PNG、字体、内联图片的独立网页与维护源。离线 HTML 和两张 SVG 必须自带资源；这类展示交付内的嵌入属于发布格式要求。它们不是插件运行时，不进入三端插件包。不能把添加高清图片后的整仓库称作“体积下降”。
@@ -43,11 +43,18 @@ The final repository includes new standalone presentation artifacts. Its total s
 | 包装反例、内部引用、Codex 缓存保护 | 通过 |
 | 双语字典、原始品牌资产、SVG/PNG 尺寸与哈希 | 通过 |
 | 六份技能结构 | 六份均通过 |
-| 桌面/手机功能与截图 | 发布后的浏览器验收待完成 |
+| 桌面/手机功能与截图 | 1440 × 900、390 × 844 中英均通过；无横向溢出 |
+| 浏览器交互 | 三视图、滑块 0/52/100%、四卡展开、三端命令复制、键盘标签切换通过 |
+| 语言与资源 | URL、lang、title、图片 alt、页面导航标签及刷新后的偏好通过；全部图片加载成功，无 JS 错误 |
+| GitHub 托管检查与部署 | 首次发布的 CI 与 Pages 均通过；最终提交状态以仓库 Actions 为准 |
 
 原生/CAD 接力使用兼容目录的真实模型，在临时目录执行。PM-532 封面数据沿用原示例已核验记录：21 段光束、2.727 mm 净空下界、BFL 5.677 ± 0.50 mm；原资产未改动。原生接力中的另一套测试总装有其自己的实体数和净空，不冒充同一 PM-532 基准。3 mW → 3 × 1 mW 是无损模型；现场功率、插损和 PER 仍待实测。
 
-浏览器直接打开本机 `file://` 的操作受到当前工具限制。独立页面的无外部资源、脚本语法及内容一致性已通过静态检查；不能将其表述为完成了真实离线浏览器点击验收。线上交互验收另行记录实际结果。
+浏览器直接打开本机 `file://` 的操作受到当前工具限制。独立页面的无外部资源、脚本语法及内容一致性已通过静态检查；不能将其表述为完成了真实离线浏览器点击验收。线上交互验收已在公开 Pages 完成；切换语言后复制状态的残留文本已修复。静态封面的嵌套 SVG 字体丢失问题通过从原图生成带文字的 PNG 插图修复，原始工程图与官方 Logo 不变。
+
+Public browser verification covered both requested viewports, both languages, all views, slider keyboard endpoints, four expanded stage cards, three client tabs, four copy buttons, language persistence and zero page errors. Direct `file://` browser verification was unavailable in this environment; offline claims are limited to the self-contained asset and code checks.
+
+[中文展示页](https://ustcredapple-dotcom.github.io/HKSOP-Harness/?lang=zh) · [English showcase](https://ustcredapple-dotcom.github.io/HKSOP-Harness/?lang=en) · [首次托管 CI 通过](https://github.com/ustcredapple-dotcom/HKSOP-Harness/actions/runs/46032910018) · [首次 Pages 部署通过](https://github.com/ustcredapple-dotcom/HKSOP-Harness/actions/runs/46033011900)。最终版本与后续部署见 [Actions](https://github.com/ustcredapple-dotcom/HKSOP-Harness/actions)。截图与完整测试回执随本次本地交付保存，不装入插件运行包。
 
 ## 交付与维护
 

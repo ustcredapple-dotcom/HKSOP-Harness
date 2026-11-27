@@ -12,7 +12,7 @@ import sys
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
-from build_showcase import page,LOGO,SCHEMATIC,ASSEMBLY,NAMES
+from build_showcase import page,LOGO,SCHEMATIC,SCHEMATIC_COVER,ASSEMBLY,NAMES
 
 class Document(HTMLParser):
     def __init__(self):super().__init__();self.tags=[]
@@ -48,9 +48,12 @@ def main():
         for image in svg.iter('{http://www.w3.org/2000/svg}image'):
             url=image.attrib['{http://www.w3.org/1999/xlink}href'];assert url.startswith('data:image/')
             image_hashes.append(digest(base64.b64decode(url.split(',',1)[1],validate=True)))
-        assert set(image_hashes)=={digest((ROOT/p).read_bytes()) for p in (LOGO,SCHEMATIC,ASSEMBLY)}
+        assert set(image_hashes)=={digest((ROOT/p).read_bytes()) for p in (LOGO,SCHEMATIC_COVER,ASSEMBLY)}
         png=path.with_suffix('.png').read_bytes();assert png[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack('>II',png[16:24])==(2560,1280)
         assert manifest['png'][path.with_suffix('.png').name]==digest(png)
+    derivative=manifest['schematicDerivative']
+    assert derivative['source']==str(SCHEMATIC) and derivative['output']==str(SCHEMATIC_COVER)
+    assert struct.unpack('>I',(ROOT/SCHEMATIC_COVER).read_bytes()[16:20])[0]==1640
     for filename,lang in [('README.md','zh'),('README.en.md','en')]:
         text=(ROOT/filename).read_text();assert f'docs/assets/cover-{lang}.png' in text
         assert ('README.en.md' if lang=='zh' else 'README.md') in text

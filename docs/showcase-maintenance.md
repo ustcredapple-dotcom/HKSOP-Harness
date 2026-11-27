@@ -10,13 +10,15 @@ python3 scripts/build_showcase.py --check
 python3 tests/showcase_acceptance.py
 ~~~
 
-Optional artwork regeneration needs `fontTools` and a locally licensed CJK font. Select the appropriate face index for a font collection. Only document outlines are exported; the system CJK font itself is not distributed.
+Optional artwork regeneration needs `fontTools`, `resvg-py 0.5.0`, a locally licensed CJK font and a sans-serif font for the schematic. Select the appropriate face index for a font collection. Only document outlines are exported; the system CJK font itself is not distributed.
 
 ~~~sh
-python3 scripts/build_showcase.py --covers --cjk-font /path/to/font.ttc --cjk-index 11
+python3 scripts/build_showcase.py --covers \
+  --cjk-font /path/to/cjk-font.ttc --cjk-index 11 \
+  --schematic-font /path/to/sans-serif.ttf
 ~~~
 
-Export each SVG with a real SVG rasterizer at **2560 × 1280**, preserving its 2:1 canvas. This release uses `resvg-py 0.5.0` with explicit sans-serif font input for the embedded schematic. System thumbnail generators are unsuitable if they crop to a square. Record the PNG SHA-256 values and renderer in `assets/cover-manifest.json`, then run the showcase test. The manifest binds original asset hashes, release version, CJK face identity and output hashes; the official logo remains byte-for-byte identical to its brand manifest.
+The command exports each SVG at **2560 × 1280**, preserving its 2:1 canvas, and records PNG hashes in `assets/cover-manifest.json`. It first renders the unchanged schematic into `assets/schematic-cover.png` at 1640 px width with an explicit font: nested SVG images otherwise lose their text in this rasterizer. The interactive page continues to embed the original vector schematic. PNG scanlines are losslessly recompressed at zlib level 9, with CRC and decoded-data equality checks; all non-image chunks are preserved. System thumbnail generators are unsuitable if they crop to a square. Run the showcase test after regeneration. The manifest binds original asset hashes, release version, CJK face identity and output hashes; the official logo remains byte-for-byte identical to its brand manifest.
 
 Manrope subset provenance is in `assets/font-sources.json`; the original [SIL OFL notice](../plugins/hksop-step3-manufacture/skills/export-packages/references/logo/OFL-Manrope.txt) accompanies the canonical logo resources. This font permission does not grant a license to the rest of the repository.
 

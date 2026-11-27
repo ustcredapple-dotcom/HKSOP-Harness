@@ -8,15 +8,39 @@ import json
 from pathlib import Path
 import re
 import sys
+import struct
+import zlib
 
 ROOT=Path(__file__).resolve().parents[1]
 LOGO=Path('plugins/hksop-step3-manufacture/skills/export-packages/references/logo/hksop-logo-mono.svg')
 NAMES=('hksop-step1-optics','hksop-step2-board','hksop-custom-part','hksop-step3-manufacture')
 SCHEMATIC=Path('examples/pm-fiber-1x3-532/schematic.svg')
+SCHEMATIC_COVER=Path('docs/assets/schematic-cover.png')
 ASSEMBLY=Path('examples/pm-fiber-1x3-532/assembly-preview.png')
 
 def data(path,mime):
     return 'data:'+mime+';base64,'+base64.b64encode((ROOT/path).read_bytes()).decode()
+
+def optimize_png(raw):
+    """Losslessly recompress scanlines; preserve every non-image PNG chunk."""
+    if raw[:8]!=b'\x89PNG\r\n\x1a\n':raise ValueError('Invalid PNG header')
+    chunks=[];offset=8
+    while offset<len(raw):
+        size=struct.unpack('>I',raw[offset:offset+4])[0]
+        kind=raw[offset+4:offset+8];payload=raw[offset+8:offset+8+size]
+        crc=struct.unpack('>I',raw[offset+8+size:offset+12+size])[0]
+        if zlib.crc32(kind+payload)!=crc:raise ValueError('Invalid PNG CRC')
+        chunks.append((kind,payload));offset+=size+12
+    scanlines=zlib.decompress(b''.join(p for k,p in chunks if k==b'IDAT'))
+    compressed=zlib.compress(scanlines,9)
+    if zlib.decompress(compressed)!=scanlines:raise ValueError('PNG image data changed')
+    output=[raw[:8]];written=False
+    for kind,payload in chunks:
+        if kind==b'IDAT':
+            if written:continue
+            payload=compressed;written=True
+        output.append(struct.pack('>I',len(payload))+kind+payload+struct.pack('>I',zlib.crc32(kind+payload)))
+    return b''.join(output)
 
 def page():
     content=(ROOT/'docs/showcase.template.html').read_text()
@@ -35,12 +59,20 @@ def page():
     return content
 
 
-def covers(cjk_font, cjk_index=0):
+def covers(cjk_font, cjk_index, schematic_font):
+    import resvg_py
     from fontTools.ttLib import TTFont
     from fontTools.pens.svgPathPen import SVGPathPen
     fonts={w:TTFont(ROOT/f'docs/assets/manrope-{w}.woff') for w in (400,800)}
     cjk=TTFont(cjk_font,fontNumber=cjk_index)
-    inputs=[LOGO,SCHEMATIC,ASSEMBLY,Path('docs/showcase.i18n.json'),Path('packaging/release.json')]+[Path(f'docs/assets/manrope-{w}.woff') for w in (400,800)]
+    schematic_face=TTFont(schematic_font,fontNumber=0)['name'].getDebugName(1)
+    # Rasterize the original SVG before nesting: resvg does not propagate fonts
+    # into an SVG image, which would silently omit the inset's text labels.
+    (ROOT/SCHEMATIC_COVER).write_bytes(optimize_png(resvg_py.svg_to_bytes(
+        svg_path=str(ROOT/SCHEMATIC),width=1640,
+        font_files=[str(schematic_font)],font_family=schematic_face,
+        sans_serif_family=schematic_face)))
+    inputs=[LOGO,SCHEMATIC,SCHEMATIC_COVER,ASSEMBLY,Path('docs/showcase.i18n.json'),Path('packaging/release.json')]+[Path(f'docs/assets/manrope-{w}.woff') for w in (400,800)]
     version=json.loads((ROOT/'packaging/release.json').read_bytes())['version']
     rows={}
     for lang in ('zh','en'):
@@ -88,26 +120,31 @@ def covers(cjk_font, cjk_index=0):
         rect(648,408,344,145,'#152c36',None,6);bits[-1]=bits[-1].replace('/>',' opacity=".08"/>')
         rect(643,402,344,145,'#FCFBF7','#168148',5)
         text('01 / '+('逻辑原理图' if lang=='zh' else 'LOGICAL SCHEMATIC'),656,422,9,800,'#168148',.5)
-        bits.append(f'<image x="651" y="431" width="328" height="109" preserveAspectRatio="xMidYMid meet" xlink:href="{data(SCHEMATIC,"image/svg+xml")}"/>')
+        bits.append(f'<image x="651" y="431" width="328" height="109" preserveAspectRatio="xMidYMid meet" xlink:href="{data(SCHEMATIC_COVER,"image/png")}"/>')
         bits.append('<path d="M994 523H1179V476" stroke="#168148" stroke-width="1.5" fill="none"/><circle cx="1179" cy="476" r="4" fill="#22C55E"/>')
         text('PM-532 · 1×3 R2 · 450×300 mm',670,582,12,800,'#152C36')
         text('2.727 mm '+('三维净空下界 · 数字总装核验' if lang=='zh' else '3D clearance lower bound · CAD verified'),670,605,10,400,'#47636D')
         bits.append('</svg>')
         dest=ROOT/f'docs/assets/cover-{lang}.svg';dest.write_text('\n'.join(bits)+'\n')
         rows[dest.name]=hashlib.sha256(dest.read_bytes()).hexdigest()
-    manifest={'format':'hksop-showcase-assets-v1','version':version,'canvas':[1280,640],'pngCanvas':[2560,1280],'originalLogoUnmodified':True,'cjkOutlines':cjk['name'].getDebugName(1)+' '+cjk['name'].getDebugName(2)+'; document glyph outlines only, no font file distributed.','inputs':{str(p):hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in inputs},'svg':rows}
+    png_rows={}
+    for lang in ('zh','en'):
+        dest=ROOT/f'docs/assets/cover-{lang}.png'
+        dest.write_bytes(optimize_png(resvg_py.svg_to_bytes(svg_path=str(dest.with_suffix('.svg')),width=2560,height=1280)))
+        png_rows[dest.name]=hashlib.sha256(dest.read_bytes()).hexdigest()
+    manifest={'format':'hksop-showcase-assets-v1','version':version,'canvas':[1280,640],'pngCanvas':[2560,1280],'originalLogoUnmodified':True,'cjkOutlines':cjk['name'].getDebugName(1)+' '+cjk['name'].getDebugName(2)+'; document glyph outlines only, no font file distributed.','inputs':{str(p):hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in inputs},'svg':rows,'png':png_rows,'renderer':'resvg-py 0.5.0; 2560x1280; lossless zlib-9 PNG optimization; schematic rasterized separately with '+schematic_face,'schematicDerivative':{'source':str(SCHEMATIC),'output':str(SCHEMATIC_COVER),'width':1640,'fontFamily':schematic_face,'fontSha256':hashlib.sha256(Path(schematic_font).read_bytes()).hexdigest()}}
     (ROOT/'docs/assets/cover-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');p.add_argument('--covers',action='store_true');p.add_argument('--cjk-font',type=Path);p.add_argument('--cjk-index',type=int,default=0);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');p.add_argument('--covers',action='store_true');p.add_argument('--cjk-font',type=Path);p.add_argument('--cjk-index',type=int,default=0);p.add_argument('--schematic-font',type=Path);a=p.parse_args()
     result=page();dest=ROOT/'docs/index.html'
     if a.check:
         if not dest.exists() or dest.read_text()!=result:p.exit(1,'Showcase is stale. Run scripts/build_showcase.py\n')
         print('PASS self-contained showcase matches its sources')
     else:dest.write_text(result);print(dest.relative_to(ROOT),len(result.encode()),'bytes')
     if a.covers:
-        if not a.cjk_font:p.error('--covers requires --cjk-font')
-        covers(a.cjk_font,a.cjk_index)
+        if not a.cjk_font or not a.schematic_font:p.error('--covers requires --cjk-font and --schematic-font')
+        covers(a.cjk_font,a.cjk_index,a.schematic_font)
 
 if __name__=='__main__':main()

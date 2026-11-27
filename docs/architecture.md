@@ -22,6 +22,10 @@ Git 中不再保存 `dsh-plugins/`。`packaging/dsh/` 仅保留每个宿主的�
 
 DSH templates are not installable payloads. The installer builds the four complete Cordis packages on demand. Dry-runs use temporary assembly; copy and explicit developer-link modes use the generated distribution. Local edits and foreign receipts remain protected, including the Codex versioned cache.
 
+DSH 桌面配置可将生成包作为本地 `link:` 依赖加载，在“插件 → 已安装”中分别启停。普通工作区的新对话中，用 `/` 加技能名调用。每份 `cordis.patch.yml` 仅声明自身；账号、模型和路由由宿主管理。
+
+In DSH, add generated packages as local `link:` dependencies in the desktop configuration and enable each under Plugins → Installed. Invoke a skill with `/` plus its name in a new workspace chat. Each Cordis patch declares only its own plugin; accounts, models and routing remain host-managed.
+
 ## 规则与资料 / Instructions and references
 
 各插件的 `rules/AGENTS.md` 保存常驻约束。六个 `SKILL.md` 只保留触发条件、执行流程、脚本、交付和检查入口，并指向本插件规则；宿主已注入时不重复读取。DSH 注册入口仍将技能与本阶段规则组合一次，验收会真实加载入口，检查六份最终提示词，不依赖字符串搜到注册函数就判通过。
