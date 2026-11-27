@@ -34,7 +34,3 @@
 ## 六项体检
 
 检查端口与终端闭合（unterminated_beam），分光频段与回光（unmapped_wavelength、isolator_reverse_blocked），偏振折转与保偏端口（polarization_fold_hazard、pm_pol_mismatch），孔径和高斯准直（collimation_error），锁距（span_distance_error），以及反向、拍频和功率闭合。每一段在 trace.beams 中可查起终点的复 q、2w、偏振、功率及频移。
-
-## 保偏接口与验收
-
-保偏出口从最后一个分束面起须有 QWP 与 HWP。入口先 QWP 消除残余椭偏，后 HWP 设第一分光比。PBS 透射直通纯 P 的级间可用单 HWP。反射、厚窗或声光级间优先双片。默认窄键 FC/APC；平端面约 4% 背反。反射支路目标 20 dB 需实测，30 dB 需清理或高消光比分束器。超过 1 W 核对石英波片及高损伤阈值光学元件。

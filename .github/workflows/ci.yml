@@ -18,3 +18,5 @@ jobs:
       - run: python3 tests/optical_graph_acceptance.py
       - run: python3 tests/pm_optics_checks.py
       - run: python3 tests/plugins_acceptance.py --offline
+      - run: python3 tests/packaging_regression.py
+      - run: python3 tests/showcase_acceptance.py

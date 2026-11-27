@@ -1,0 +1,21 @@
+{
+  "family": "Manrope",
+  "license": "SIL OFL 1.1",
+  "licenseFile": "../../plugins/hksop-step3-manufacture/skills/export-packages/references/logo/OFL-Manrope.txt",
+  "files": [
+    {
+      "weight": 400,
+      "file": "manrope-400.woff",
+      "sha256": "552783d08dd166f13ac4684d9b441467eb849caccaf3bfbb6d63b45690ba9e1e",
+      "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+      "sourceTtfSha256": "ed335894f8d954263675f7e457bf657374d8b7be629be4dc43aef97c309ad3ae"
+    },
+    {
+      "weight": 800,
+      "file": "manrope-800.woff",
+      "sha256": "d6ddbcbfd4acbab50ad8aa426f7781eab699f675c603782671a9a2bd9282a9b4",
+      "source": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+      "sourceTtfSha256": "a8291b05b2732801abdbbb6d06866c57431c3b990638462423e692151b5e0895"
+    }
+  ]
+}

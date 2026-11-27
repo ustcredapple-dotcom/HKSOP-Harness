@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check staged blobs and working files, package synchronization, isolation and resolver behavior."""
 import hashlib
+import base64
 import io
 import os
 from pathlib import Path
@@ -15,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from optical_layout.hksop_runtime import library_root
 from plugins_acceptance import manifests, isolation, cordis_contract
+sys.path.insert(0, str(ROOT / "scripts"))
+from redundancy_audit import run_audit, dsh_prompt_contract
+from build_dist import build_dsh
 
 
 def patterns():
@@ -64,7 +68,15 @@ def hygiene():
             raise ValueError("File exceeds size limit: " + name)
         key = hashlib.sha256(content).digest()
         if key not in scanned:
-            if any(rule.search(content) for rule in rules):
+            # Scan embedded assets as decoded bytes, then scan the surrounding text.
+            # Base64's random letters are not prose; hiding a credential in it still fails.
+            embedded = re.compile(rb"data:(?:image/[a-zA-Z0-9+.-]+|font/[a-zA-Z0-9+.-]+);base64,([A-Za-z0-9+/=]+)")
+            def decode_asset(match):
+                payload = base64.b64decode(match.group(1), validate=True)
+                check_bytes(payload, name + " [embedded asset]")
+                return b"data:decoded-and-scanned"
+            readable = embedded.sub(decode_asset, content)
+            if any(rule.search(readable) for rule in rules):
                 raise ValueError("Private path or credential pattern in " + name)
             scanned.add(key)
     for header, raw_name in tracked:
@@ -110,6 +122,9 @@ def main():
     manifests(ROOT/"plugins")
     rows = isolation(ROOT/"plugins")+cordis_contract()
     root_contract()
+    metrics = run_audit([Path(os.fsdecode(p)) for p in git("ls-files", "-z").split(b"\0") if p])
+    prompts = dsh_prompt_contract(build_dsh())
+    print(f"PASS redundancy gates: {metrics}; {prompts} live Cordis prompts")
     print(f"PASS {count} tracked files, staged and on disk; 8 client packages; {sum(x['matches'] for x in rows)} isolation matches")
 
 

@@ -1,6 +1,6 @@
 {
   "format": "hksop-harness-compatibility-v1",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "repository": "https://github.com/ustcredapple-dotcom/HKSOP-Harness",
   "core": {
     "repository": "https://github.com/ustcredapple-dotcom/HKSOP",
@@ -47,22 +47,26 @@
     "hksop-custom-part": [
       "34e0719cef900998d677d29efc5cf505d37bba0d593d977badd212c0872349dc",
       "82b83c526da387382bf310010d022807ae6016a9bcce873afc31dcbc0e2840b9",
-      "565c613fd5509cc87352516b8cb1667272ddaa8ee3c536f42be85110584d8455"
+      "565c613fd5509cc87352516b8cb1667272ddaa8ee3c536f42be85110584d8455",
+      "9697468fad7eb0dd6470709a39fedd49ead63b8cd4efd4ebe6678892f92a3530"
     ],
     "dsh-hksop-custom-part": [
       "d0593d013c58b873c94fd30d271cc57a23bcc7b2e928d493bf5ceb6713eda740",
       "d28a1ed920a1b5ca65bd488a9a9e2a849ad3340a58bf8e5f5983791b76e139b7",
-      "149fa471f4ef2fc2eeb2bf60ab964befbe3744385f1610cf84535fd4dd8a887a"
+      "149fa471f4ef2fc2eeb2bf60ab964befbe3744385f1610cf84535fd4dd8a887a",
+      "0b783c25b62c997d0b3be602e1b2699a90e3fb74608c9ba4007e6640484424fb"
     ],
     "hksop-step3-manufacture": [
       "3164ebcd57271b8c7f0b9a22081882454ceabd026a9800a3f68086db06a1a995",
       "4de1951c44f98e5d2fa73edd304228c391f1d09437d791f643b6b92a6c98e906",
-      "eca26a1cb8458ed47e193e6655017ad199e3b9ce836fa87ed4464387f3776360"
+      "eca26a1cb8458ed47e193e6655017ad199e3b9ce836fa87ed4464387f3776360",
+      "22d803b3b0655be44c714ef7dfc2b793e4c86e2e707c6c5322529af950ae4ef7"
     ],
     "dsh-hksop-step3-manufacture": [
       "a34679cda56fe644cdbefaf2c4227190f856e7fa06481c19f23ac0ef64086e29",
       "eaa1015f018c747e3785edc794a5fa8601ee48031eace67f03ba5b16adb0e88a",
-      "85146590ec538ac4c84603b453350e657211535ecf3b13ab7457be8b5dc0f2d9"
+      "85146590ec538ac4c84603b453350e657211535ecf3b13ab7457be8b5dc0f2d9",
+      "3da201300479d84c0f83ad266a1aa15f7cdc3ede2f45f693ce9a457e2ea29244"
     ]
   }
 }

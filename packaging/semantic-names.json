@@ -1,0 +1,89 @@
+{
+  "README.md": {
+    "reason": "Separate entry documents for the repository, example, four native plugins and four DSH host wrappers.",
+    "sources": [
+      "README.md",
+      "examples/pm-fiber-1x3-532/README.md",
+      "packaging/dsh/dsh-hksop-custom-part/README.md",
+      "packaging/dsh/dsh-hksop-step1-optics/README.md",
+      "packaging/dsh/dsh-hksop-step2-board/README.md",
+      "packaging/dsh/dsh-hksop-step3-manufacture/README.md",
+      "plugins/hksop-custom-part/README.md",
+      "plugins/hksop-step1-optics/README.md",
+      "plugins/hksop-step2-board/README.md",
+      "plugins/hksop-step3-manufacture/README.md"
+    ]
+  },
+  "cordis.patch.yml": {
+    "reason": "Each of four Cordis patches enables its own isolated plugin.",
+    "sources": [
+      "packaging/dsh/dsh-hksop-custom-part/cordis.patch.yml",
+      "packaging/dsh/dsh-hksop-step1-optics/cordis.patch.yml",
+      "packaging/dsh/dsh-hksop-step2-board/cordis.patch.yml",
+      "packaging/dsh/dsh-hksop-step3-manufacture/cordis.patch.yml"
+    ]
+  },
+  "index.js": {
+    "reason": "Four DSH registration wrappers declare different skill sets and provider identities.",
+    "sources": [
+      "packaging/dsh/dsh-hksop-custom-part/lib/index.js",
+      "packaging/dsh/dsh-hksop-step1-optics/lib/index.js",
+      "packaging/dsh/dsh-hksop-step2-board/lib/index.js",
+      "packaging/dsh/dsh-hksop-step3-manufacture/lib/index.js"
+    ]
+  },
+  "package.json": {
+    "reason": "Distinct names and descriptions of the four DSH wrappers.",
+    "sources": [
+      "packaging/dsh/dsh-hksop-custom-part/package.json",
+      "packaging/dsh/dsh-hksop-step1-optics/package.json",
+      "packaging/dsh/dsh-hksop-step2-board/package.json",
+      "packaging/dsh/dsh-hksop-step3-manufacture/package.json"
+    ]
+  },
+  "plugin.json": {
+    "reason": "Distinct identities and capabilities of the four isolated native plugins.",
+    "sources": [
+      "plugins/hksop-custom-part/plugin.json",
+      "plugins/hksop-step1-optics/plugin.json",
+      "plugins/hksop-step2-board/plugin.json",
+      "plugins/hksop-step3-manufacture/plugin.json"
+    ]
+  },
+  "logo.svg": {
+    "reason": "Four intentionally different stage icons.",
+    "sources": [
+      "plugins/hksop-custom-part/assets/logo.svg",
+      "plugins/hksop-step1-optics/assets/logo.svg",
+      "plugins/hksop-step2-board/assets/logo.svg",
+      "plugins/hksop-step3-manufacture/assets/logo.svg"
+    ]
+  },
+  "AGENTS.md": {
+    "reason": "Four intentionally distinct stage-specific standing rule sets.",
+    "sources": [
+      "plugins/hksop-custom-part/rules/AGENTS.md",
+      "plugins/hksop-step1-optics/rules/AGENTS.md",
+      "plugins/hksop-step2-board/rules/AGENTS.md",
+      "plugins/hksop-step3-manufacture/rules/AGENTS.md"
+    ]
+  },
+  "SKILL.md": {
+    "reason": "Six distinct skill entry points; their frontmatter names and responsibilities are checked by plugin acceptance.",
+    "sources": [
+      "plugins/hksop-custom-part/skills/custom-part-cad/SKILL.md",
+      "plugins/hksop-custom-part/skills/library-intake/SKILL.md",
+      "plugins/hksop-step1-optics/skills/optics-graph-design/SKILL.md",
+      "plugins/hksop-step2-board/skills/board-auto-layout/SKILL.md",
+      "plugins/hksop-step3-manufacture/skills/export-packages/SKILL.md",
+      "plugins/hksop-step3-manufacture/skills/json-to-3d-verify/SKILL.md"
+    ]
+  },
+  "__init__.py": {
+    "reason": "Separate optical_graph and optical_layout package APIs.",
+    "sources": [
+      "src/optical_graph/__init__.py",
+      "src/optical_layout/__init__.py"
+    ]
+  }
+}

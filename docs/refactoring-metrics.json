@@ -1,0 +1,27 @@
+{
+  "format": "hksop-refactoring-metrics-v1",
+  "baselineCommit": "52be20026b47e388d64d1d1b54b907761011916a",
+  "unit": "bytes; KiB=bytes/1024",
+  "before": {
+    "files": 319,
+    "bytes": 2582779,
+    "duplicateGroups": 105,
+    "redundantCopies": 164,
+    "duplicateBytes": 1221511
+  },
+  "refactorCheckpoint": {
+    "files": 198,
+    "bytes": 1677665,
+    "duplicateGroups": 27,
+    "redundantCopies": 37,
+    "duplicateBytes": 338597
+  },
+  "completeRelease": {
+    "files": 217,
+    "bytes": 4824580,
+    "duplicateGroups": 27,
+    "redundantCopies": 37,
+    "duplicateBytes": 338597
+  },
+  "duplicatePolicy": "All remaining exact copies are registered authoring-to-distribution relationships; no arbitrary byte-copy exceptions."
+}

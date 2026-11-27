@@ -1,0 +1,29 @@
+{
+  "name": "dsh-hksop-custom-part",
+  "version": "1.3.0",
+  "description": "解析定制件需求，建模、校验及登记经确认的元件包。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "skills",
+    "rules",
+    "assets",
+    "README.md",
+    "cordis.patch.yml",
+    "shared"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.0 <0.3.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

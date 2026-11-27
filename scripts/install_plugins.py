@@ -12,6 +12,7 @@ import sys
 import tempfile
 
 from sync_plugins import NAMES, ROOT, files
+from build_dist import build_dsh
 
 CLIENTS = {"antigravity": ".gemini/config/plugins", "codex": ".codex/local-marketplaces/hksop/plugins",
            "dsh": ".dsh/local-plugins"}
@@ -92,11 +93,11 @@ def sync_codex_plugin_cache(store, legacy, apply, update):
             print("CACHE-BACKUP", old, "→", old_backup)
 
 
-def install(client, target, mode, apply, update, sync_codex_cache=False):
+def _install(client, target, mode, apply, update, sync_codex_cache=False, store=None):
     if sync_codex_cache and client != "codex":
         raise ValueError("--sync-codex-cache 仅适用于 --client codex")
     root = validate_target(target or (Path.home() / CLIENTS[client]))
-    store = ROOT / ("dsh-plugins" if client == "dsh" else "plugins")
+    store = store or ROOT / "plugins"
     legacy = json.loads((ROOT / "compatibility.json").read_bytes()).get("previousPackageFingerprints", {})
     manifest = "package.json" if client == "dsh" else "plugin.json"
 
@@ -182,6 +183,16 @@ def install(client, target, mode, apply, update, sync_codex_cache=False):
         os.close(handle)
     if sync_codex_cache:
         sync_codex_plugin_cache(store, legacy, True, update)
+
+
+def install(client, target, mode, apply, update, sync_codex_cache=False):
+    if client != "dsh":
+        return _install(client, target, mode, apply, update, sync_codex_cache)
+    if apply:
+        # A persistent generated path also keeps developer symlink installations valid.
+        return _install(client, target, mode, apply, update, sync_codex_cache, build_dsh())
+    with tempfile.TemporaryDirectory(prefix="hksop-dsh-preview-") as temp:
+        return _install(client, target, mode, apply, update, sync_codex_cache, build_dsh(Path(temp)))
 
 
 if __name__ == "__main__":

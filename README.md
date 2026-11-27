@@ -1,3 +1,15 @@
+<div align="center">
+
+<p><strong>简体中文</strong> &nbsp;|&nbsp; <a href="README.en.md">English ↗</a> &nbsp;·&nbsp; <a href="https://ustcredapple-dotcom.github.io/HKSOP-Harness/?lang=zh">交互式封面 ↗</a></p>
+
+<img src="docs/assets/cover-zh.png" alt="HKSOP Harness — 从可执行光路图到三维可加工光机总装" width="100%" />
+
+<p>光路原理 → 二维排板 → 三维核验与制造<br><small>定制件按需介入，入库后返回排板复验</small></p>
+
+<p><a href="#从-532-nm-光纤一分三开始">532 nm 数字设计示例</a> · <a href="#安装到客户端">三端插件安装</a> · <a href="https://github.com/ustcredapple-dotcom/HKSOP">HKSOP 本体</a> · <a href="compatibility.json">兼容清单 v1.3.0</a> · <a href="LICENSE">版权保留</a></p>
+
+</div>
+
 # HKSOP Harness
 
 用一张可执行的光路图，计算端口功率与偏振，生成二维排板和原生 HKSOP 工程，再对真实三维总装做净空检查，导出加工包和装配采购包。四个插件可单独使用，步骤之间通过文件交接。
@@ -25,7 +37,7 @@ R2 采用东侧输入、南侧三路等距输出。四组双波片用于输入�
 
 ![450 × 300 mm R2 三维总装](examples/pm-fiber-1x3-532/assembly-preview.png)
 
-三维图来自已校核的装配模型。无损模型下 3 mW 输入对应每路 1 mW。实际远端功率和 PER 需在 532 nm 下装调测量。[示例与几何来源](examples/pm-fiber-1x3-532/README.md)
+R2 底板为 450 × 300 × 12.5 mm，M6 孔距 12.5 mm，光高 62.5 mm，三路输出间距 112.5 mm。21 段光束的三维最小净空下界为 2.727 mm，设计后截距 5.677 mm，中点至两个机械终点各余 0.50 mm。三维图来自已校核的装配模型。无损模型下 3 mW 输入对应每路 1 mW。实际远端功率和 PER 需在 532 nm 下装调测量。[示例与几何来源](examples/pm-fiber-1x3-532/README.md)
 
 ## 对接 HKSOP 本体
 
@@ -80,6 +92,14 @@ python3 tests/test_repo_hygiene.py
 python3 tests/optical_graph_acceptance.py
 python3 tests/pm_optics_checks.py
 python3 tests/plugins_acceptance.py --offline
+python3 tests/packaging_regression.py
+python3 tests/showcase_acceptance.py
 ~~~
 
-离线验收在临时目录验证双端清单、四个 Cordis 包、阶段隔离、第 1 棒接力及三端安装升级。完整验收还会运行 HKSOP 原生 verify 和三维终检；如有 HKSOP_VENDOR_DIR 指定的合法本地原厂文件，完整测试会逐件核对哈希，在临时工作区重建调焦头。迁移已有安装时也支持与本体并列的旧版 HKSOP harness 中的原厂文件。其余环境可使用预置的调焦头，或从原厂下载；原厂限制自动下载时使用 --vendor。src 的修改先用 scripts/sync_plugins.py --apply 同步，再运行 --check 和验收。[架构与规范](docs/architecture.md) · [使用与分发条款](LICENSE)
+离线验收在临时目录验证双端清单、四个 Cordis 包、阶段隔离、第 1 棒接力及三端安装升级。完整验收还会运行 HKSOP 原生 verify 和三维终检；如有 HKSOP_VENDOR_DIR 指定的合法本地原厂文件，完整测试会逐件核对哈希，在临时工作区重建调焦头。迁移已有安装时也支持与本体并列的旧版 HKSOP harness 中的原厂文件。其余环境可使用预置的调焦头，或从原厂下载；原厂限制自动下载时使用 --vendor。引擎作者源保留在 `src/` 与 `scripts/`，原生插件保留独立运行所需的受控副本，克隆后即可通过现有本地市场加载。DSH 仓内仅留 16 个宿主包装文件，安装器自动组装 `dist/dsh-plugins/`；不要直接复制 `packaging/dsh/` 作为插件。版本由 `packaging/release.json` 统一管理。源文件修改后运行 `python3 scripts/sync_plugins.py --apply`，再运行 `--check` 和验收。[架构与规范](docs/architecture.md) · [使用与分发条款](LICENSE)
+
+## 双语展示页与维护
+
+[打开交互式展示](https://ustcredapple-dotcom.github.io/HKSOP-Harness/?lang=zh)，或下载 `docs/index.html` 单文件后离线打开。图标、原理图、总装图和字体均已内联，无需联网加载资源。语言按钮同时更新页面、查询参数和本地偏好；支持原理图、三维总装及卷帘对比。GitHub README 使用 PNG 首图，不依赖 SVG 外链加载。
+
+页面文案在 `docs/showcase.i18n.json`，布局在 `docs/showcase.template.html`。`python3 scripts/build_showcase.py` 重建独立页面；静态封面的矢量生成、PNG 导出、来源及检查方法见 [展示页维护](docs/showcase-maintenance.md)。字体按 SIL OFL 1.1 使用；仓库整体未授予开源许可。四插件边界、单源策略、受控副本与防漂移门禁见 [架构说明](docs/architecture.md) 和 [本次治理记录](docs/refactoring-1.3.0.md)。

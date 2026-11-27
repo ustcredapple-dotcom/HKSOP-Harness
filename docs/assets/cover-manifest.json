@@ -1,0 +1,32 @@
+{
+  "format": "hksop-showcase-assets-v1",
+  "version": "1.3.0",
+  "canvas": [
+    1280,
+    640
+  ],
+  "pngCanvas": [
+    2560,
+    1280
+  ],
+  "originalLogoUnmodified": true,
+  "cjkOutlines": "PingFang SC Semibold; document glyph outlines only, no font file distributed.",
+  "inputs": {
+    "plugins/hksop-step3-manufacture/skills/export-packages/references/logo/hksop-logo-mono.svg": "423a00654c97411f0842e8f3cae38013160e2cb08c885557e84242f88a55a19a",
+    "examples/pm-fiber-1x3-532/schematic.svg": "308a1dd1eb0c818bf126a88d9f36e4918bd854e3273353ec862d38a43f245b65",
+    "examples/pm-fiber-1x3-532/assembly-preview.png": "4f486dc19c0feef0337c1ae20ea8105442a00df3b586dbc2626f0a85c88df397",
+    "docs/showcase.i18n.json": "667928273fea12784936d0fc08263ff8730b99cfaa747ed32926849936b0f175",
+    "packaging/release.json": "a712771c1188651a93935822c6c71514a2341b01cddd3079e9e22f1347e48bf7",
+    "docs/assets/manrope-400.woff": "552783d08dd166f13ac4684d9b441467eb849caccaf3bfbb6d63b45690ba9e1e",
+    "docs/assets/manrope-800.woff": "d6ddbcbfd4acbab50ad8aa426f7781eab699f675c603782671a9a2bd9282a9b4"
+  },
+  "svg": {
+    "cover-zh.svg": "43f47a584c1f3cb790bf0f431a76ce49db714c906ea399c92f24a44cef7b04f1",
+    "cover-en.svg": "6057398e3cfaa79297af71b868df8252fc6a26563a81b6a1c8553fecdc9ce043"
+  },
+  "png": {
+    "cover-zh.png": "2f550f6a7a4869568427c95375429d0ced0945bc937e9ab0e8d9876196b267a7",
+    "cover-en.png": "4f34ef4ad20d5cbc1539bd900b1a135fedcaa95b936ad1438d4d59cd243300dd"
+  },
+  "renderer": "resvg-py 0.5.0; 2560x1280; explicit sans-serif font for embedded schematic"
+}

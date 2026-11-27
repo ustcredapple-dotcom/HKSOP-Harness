@@ -19,6 +19,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parents[1]
 TESTS=HERE/"tests"
+sys.path.insert(0, str(HERE / "scripts"))
+from build_dist import build_dsh
+
 PLUGINS=("hksop-step1-optics","hksop-step2-board","hksop-custom-part","hksop-step3-manufacture")
 SKILLS=[("optics-graph-design",),("board-auto-layout",),("custom-part-cad","library-intake"),("json-to-3d-verify","export-packages")]
 FIELDS={"name","displayName","version","description","logo","suggestedPrompts"}
@@ -226,7 +229,7 @@ def cordis_contract():
     from sys import path
     path.insert(0,str(HERE/"scripts"))
     from sync_plugins import files
-    root=HERE/"dsh-plugins"
+    root=build_dsh()
     expect({d.name for d in root.iterdir() if d.is_dir() and not d.name.startswith(".")}=={"dsh-"+n for n in PLUGINS},"Cordis 插件集合")
     for i,name in enumerate(PLUGINS):
         source=HERE/"plugins"/name
@@ -238,7 +241,7 @@ def cordis_contract():
         expect([line.strip() for line in patch]==["- insert:","- id: "+folder.name,"name: "+folder.name],"Cordis 独立入口")
         code=(folder/"lib/index.js").read_text()
         expect(folder.name in code and all('"'+sk+'"' in code for sk in SKILLS[i]) and "ctx.skills.register" in code,"Cordis 技能注册")
-        for part in ("skills","rules","assets"):
+        for part in ("skills","rules","assets","shared"):
             left,right=files(source/part),files(folder/part)
             expect(left.keys()==right.keys() and all(sha(f)==sha(right[n]) for n,f in left.items()),"Cordis 同源内容 "+name)
     return isolation(root,"dsh-")

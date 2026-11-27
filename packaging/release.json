@@ -1,0 +1,5 @@
+{
+  "version": "1.3.0",
+  "runtimeStrategy": "B",
+  "reason": "Preserve zero-build local marketplace loading and independently installed plugins."
+}
